@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/com/datasul/technology/webdesk/dm/ws/ApprovalLevelDto.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/ApproverDto.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/ApproverWithLevelDto.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/DocumentDto.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/DocumentSecurityConfigDto.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/Exception.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/FolderService.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/FolderServiceBindingStub.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/FolderServiceService.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/FolderServiceServiceLocator.java=UTF-8
+encoding//src/com/datasul/technology/webdesk/dm/ws/WebServiceMessage.java=UTF-8

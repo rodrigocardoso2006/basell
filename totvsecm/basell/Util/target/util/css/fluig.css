@@ -1,0 +1,45 @@
+.required:after {
+    content: "*";
+    color: red;
+    padding-left: 3%;
+    position: absolute;
+}
+
+.form-control{
+    width:97%;
+    float:left;
+}
+
+.title {
+	display: inline;
+	vertical-align: middle;
+	margin-left: 10%;
+}
+
+.page-header {
+	margin: 10px 0 10px !important;
+}
+
+.form-group {
+	margin-bottom: 3px  !important;
+}
+
+.btn {
+	float: left;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+.fluig-style-guide .fs-md-space {
+	padding: 3px!important;
+ }
+
+ .group-zoom {
+    background-color: #fff !important;
+    cursor: pointer;
+}
+
+.bpm-mobile-trash-column {
+    padding: 0px !important;
+    width: 10px;
+}

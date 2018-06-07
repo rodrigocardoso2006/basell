@@ -1,0 +1,47 @@
+
+div.tabset {
+    margin:1em 0;
+    width:40em; /* need width for ie < 8 */
+   }
+div.tabpane { 
+    display:none;
+    clear:both;
+    padding:4px 10px;
+	background-color: #fff;
+	width: 100%;
+    }
+    
+div.activePane { 
+    display:block;
+    }
+    
+ul.tabnavs {
+    display:block; /* display:none initially */
+    margin:0; padding:0;
+    list-style:none;
+    }
+ul.tabnavs li { 
+    display:inline;
+    }
+ul.tabnavs li a {
+    text-decoration:none;
+    background-color:#F4F5FA;
+    border:solid 1px #D2D8EA;
+    padding:2px 10px; 
+    margin:0 2px 0 0; /* gap between tabs */
+    float:left; width:auto;
+    position:relative; top:1px; /* brings down over pane border-top */
+    }
+    
+ul.tabnavs li a:link, ul.tabnavs li a:visited {
+    color:#4B63AA;
+    }
+ul.tabnavs li a:hover {
+    background-color:#fff;
+    }
+ul.tabnavs li a.activeTab:link, 
+ul.tabnavs li a.activeTab:visited {
+    background-color:#fff;
+	border-bottom: 1px solid #fff;
+    }
+

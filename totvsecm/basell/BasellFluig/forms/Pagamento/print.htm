@@ -1,0 +1,286 @@
+<HTML>
+	<HEAD>
+		<style>
+			* {
+				font-family:verdana, arial, helvetica, sans-serif; 
+				font-size:11px;
+			}
+			.borda { 
+				width:100%;	
+				border: 1px solid black; 
+				padding: 8px;
+			}
+			#logo { 
+				width:181px; 
+				height:98px; 
+				background-image:url(logo.jpg); 
+				background-repeat:no-repeat; 
+				float:left;
+			}
+			#titrelatotio { 
+				font-size:14px; 
+				font-weight:bold; 
+				text-transform:uppercase;  
+				text-align:center; 
+				float:left; 
+				width:70%;
+			}
+			.landscape {
+				filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1); 
+				width:950px; 
+			}
+		</style>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script language="javascript">
+			function toPrint() {
+				document.getElementById("bts").style.display = "none";
+				self.print();
+				document.getElementById("bts").style.display = "";
+			}
+			function getURLParameter(name) {
+				  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+			}
+			
+			function init() {
+				var c1 = DatasetFactory.createConstraint("metadata#active", "true", "true", ConstraintType.MUST); 
+				var c2 = DatasetFactory.createConstraint("numSolicitacao", getURLParameter("id"), getURLParameter("id"), ConstraintType.MUST); 
+				var dsPagamento = DatasetFactory.getDataset("ds_pagamento", null, new Array(c1, c2), null); 
+				showFields(dsPagamento);
+			}
+			
+			function showFields(dataset) {
+				var pagamento = dataset.values[0];
+				var tipoPagamento = parseInt(eval("pagamento[\"tipoPagamento\"]"));
+				var tipo = parseInt(eval("pagamento[\"tipo\"]"));
+
+				if (isNaN(tipo) || tipo == 0) { tipo = 1; }
+				var id = getURLParameter("id");
+				
+				var c1 = DatasetFactory.createConstraint("metadata#active", "true", "true", ConstraintType.MUST); 
+				var c2 = DatasetFactory.createConstraint("metadata#id", eval("pagamento[\"metadata#id\"]"), eval("pagamento[\"metadata#id\"]"), ConstraintType.MUST);
+				var dsFilho = null;
+				
+				if (tipo == 2) {
+					dsFilho = DatasetFactory.getDataset("ds_pagamento_tipo_2", null, new Array(c1, c2), null); 
+				} else if (tipo == 4) {
+					dsFilho = DatasetFactory.getDataset("ds_pagamento_tipo_4", null, new Array(c1, c2), null); 
+				} 
+				
+				var u = getUsuarioAbertura();
+				document.getElementById("tipoPagamento").innerHTML = getPagamento(tipoPagamento); 
+				document.getElementById("numero").innerHTML += " " + getURLParameter("id"); 
+				document.getElementById("situacao").innerHTML += " " + getSituacao(); 
+				document.getElementById("dataAbertura").innerHTML += " " + getDataAbertura(); 
+				document.getElementById("empresa").innerHTML += " " + eval("pagamento[\"empresa\"]"); 
+				document.getElementById("estabelecimento").innerHTML += " " + eval("pagamento[\"estabelecimento\"]"); 
+				document.getElementById("solicitante").innerHTML += " " + u;
+				document.getElementById("fornecedor").innerHTML += " " + eval("pagamento[\"fornecedor\"]"); 
+				document.getElementById("fornecedor_h").innerHTML += " " + eval("pagamento[\"fornecedor_h\"]"); 
+				document.getElementById("dataVencimento").innerHTML += " " + eval("pagamento[\"periodo" + tipo + "\"]"); 
+				document.getElementById("valor").innerHTML += " " + eval("pagamento[\"valor" + tipo + "\"]"); 
+				document.getElementById("observacoes").innerHTML += " " + eval("pagamento[\"descricao" + tipo + "\"]"); 
+				document.getElementById("solicitante2").innerHTML += " " + u; 
+				document.getElementById("aprovador1").innerHTML += " " + eval("pagamento[\"aprovadorPri\"]");
+				if (eval("pagamento[\"aprovador\"]") != "")
+				document.getElementById("aprovador2").innerHTML = "Aprovador 2: " + eval("pagamento[\"aprovador\"]"); 
+							
+				var html = getHtmlTabela(tipo, pagamento, dsFilho);
+				
+				document.getElementById("divTabela").innerHTML = html;
+				
+				var ccusto = "";
+				if  (tipo == 1) {
+					ccusto = eval("pagamento[\"centroCusto1\"]");
+				} else if  (tipo == 3) {
+					ccusto = eval("pagamento[\"CentroCusto_h\"]") + " - " + eval("pagamento[\"CentroCustoT\"]");
+				} else if (tipo == 4) {
+					ccusto = eval("pagamento[\"centroCusto4\"]") + " - " + eval("pagamento[\"descricaoCentroCusto4\"]");
+				}
+				document.getElementById("cCusto").innerHTML += " " + ccusto; 
+				
+			}
+			
+			function getHtmlTabela(tipo, dataset, filho) {
+				var lines = 22;
+				var r = '<table width="100%" border="1" cellpadding="2" cellspacing="0" bordercolor="#000000">';
+				if (tipo == 4) {
+					r += '      <tr>';
+					r += '            <td><div align="center" class="style4">Conta</div></td>';
+					r += '            <td><div align="center" class="style4">Descri&ccedil;&atilde;o</div></td>';
+					r += '            <td><div align="center" class="style4">Valor</div></td>';
+					r += '      </tr>';
+					
+					for (var i=0;i<filho.values.length;i++) {
+						var record = filho.values[i];
+						r += '      <tr>';
+						r += '            <td>' + eval("record[\"conta\"]") + '</td>';
+						r += '            <td>' + eval("record[\"nomeConta\"]") + '</td>';
+						r += '            <td>' + eval("record[\"valor\"]") + '</td>';
+						r += '      </tr>';
+						lines -= 2;
+					}
+					
+				} else if (tipo == 2) {
+					r += '      <tr>';
+					r += '            <td width="15%"><div align="center" class="style4">Conta</div></td>';
+					r += '            <td width="30%"><div align="center" class="style4">Descri&ccedil;&atilde;o</div></td>';
+					r += '            <td width="15%"><div align="center" class="style4">Centro de Custo</div></td>';
+					r += '            <td width="30%"><div align="center" class="style4">Descri&ccedil;&atilde;o</div></td>';
+					r += '            <td><div align="center" class="style4">Valor</div></td>';
+					r += '      </tr>';
+					
+					for (var i=0;i<filho.values.length;i++) {
+						var record = filho.values[i];
+						r += '      <tr>';
+						r += '            <td>' + eval("record[\"conta\"]") + '</td>';
+						r += '            <td>' + eval("record[\"nomeConta\"]") + '</td>';
+						r += '            <td>' + eval("record[\"centroCusto\"]") + '</td>';
+						r += '            <td>' + eval("record[\"nomeCentroCusto\"]") + '</td>';
+						r += '            <td>' + eval("record[\"valor\"]") + '</td>';
+						r += '      </tr>';
+						lines -= 2;
+					}
+				} else if (tipo == 1) {
+					r += '      <tr>';
+					r += '            <td><div align="center" class="style4">Conta</div></td>';
+					r += '            <td><div align="center" class="style4">valor</div></td>';
+					r += '      </tr>';
+					r += '      <tr>';
+					r += '            <td>' + eval("dataset[\"conta1\"]") + '</td>';
+					r += '            <td>' + eval("dataset[\"valor1\"]") + '</td>';
+					r += '      </tr>';
+				} else {
+					r += '      <tr>';
+					r += '            <td><div align="center" class="style4">Conta</div></td>';
+					r += '            <td><div align="center" class="style4">Descri&ccedil;&atilde;o</div></td>';
+					r += '            <td><div align="center" class="style4">valor</div></td>';
+					r += '      </tr>';
+					r += '      <tr>';
+					r += '            <td>' + eval("dataset[\"conta3\"]") + '</td>';
+					r += '            <td>' + eval("dataset[\"ContaT\"]") + '</td>';
+					r += '            <td>' + eval("dataset[\"valor3\"]") + '</td>';
+					r += '      </tr>';
+				}
+				
+				r+= '</table>';
+				
+				for (var i=0;i<lines;i++) {
+					r += '<br>';
+				}
+				
+				return r;
+				
+			}
+			
+			function getSituacao() {
+				var c1 = DatasetFactory.createConstraint("processo", getURLParameter("id"), getURLParameter("id"), ConstraintType.MUST);
+				var dsEstado = DatasetFactory.getDataset("ds_processo_estado", null, new Array(c1), null);
+				var v = dsEstado.values[0];
+				return eval("v[\"nom_estado\"]")
+			}
+			
+			function getUsuarioAbertura() {
+				var c1 = DatasetFactory.createConstraint("processo", getURLParameter("id"), getURLParameter("id"), ConstraintType.MUST);
+				var dsUsuario = DatasetFactory.getDataset("ds_processo_usuario_abertura", null, new Array(c1), null);
+				var v = dsUsuario.values[0];
+				return eval("v[\"nm_colaborador\"]")
+			}
+			
+			function getDataAbertura() {
+				var c1 = DatasetFactory.createConstraint("processHistoryPK.processInstanceId", getURLParameter("id"), getURLParameter("id"), ConstraintType.MUST);
+				var c2 = DatasetFactory.createConstraint("processHistoryPK.movementSequence", "1", "1", ConstraintType.MUST);
+				var dsHistory = DatasetFactory.getDataset("processHistory", null, new Array(c1,c2), null);
+				var v = dsHistory.values[0];
+				var d = eval("v[\"movementDate\"]");
+				return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+			}
+			
+			function getPagamento(codigo) {
+				var descricao = new Array();
+				descricao.push("");
+				descricao.push("Adiantamento de fornecedor");
+				descricao.push("Adiantamento Fornecedor Aduaneiro");
+				descricao.push("Adiantamento para Despesas");
+				descricao.push("Fundo Fixo");
+				descricao.push("Pagamento Impostos");
+				descricao.push("Pagamento Despesas Gerais");
+				descricao.push("Pagamento Seguros");
+				descricao.push("Reembolso de Cursos e Treinamentos");
+				descricao.push("Reembolso de Despesas");
+				return descricao[codigo];
+			}
+				
+		</script>
+	</HEAD>
+	<BODY onload="init()">
+		<span id="bts">
+        	<input type="button" value="Imprimir" onClick="toPrint();">&nbsp;
+        	<input type="button" value="Fechar" onClick="self.close();">
+        </span>
+        <table width="90%" border="0" cellspacing="2" class="landscape">
+        	<tr>
+        		<td>
+        			<table width="100%" border="0" cellspacing="2" style="border:2px solid black;">
+        				<tr>
+        					<td width="24%" rowspan="4"><img src="/util/images/Logo.gif" alt="Logo" WIDTH="161" HEIGHT="40" ></td>
+        					<td width="50%" rowspan="4">
+        						<div align="center" class="style1" style="text-transform:capitalize" id="tipoPagamento"></div>
+        					</td>
+        					<td width="26%" height="7"><div id="numero">N&uacute;mero: </div></td>
+        				</tr>
+        				<tr>
+        					<td height="8"><div id="situacao">Situa&ccedil;&atilde;o: </div></td>
+        				</tr>
+        				<tr>
+        					<td><div id="dataAbertura">Data: </div></td>
+        				</tr>
+        				<tr>
+        					<td>Folha: 1</td>
+        				</tr>
+        			</table>
+        			<table width="100%" border="0" cellspacing="2" style="border:2px solid black; ">
+        				<tr>
+        					<td width="50%"><div id="empresa">Empresa: </div></td>
+        					<td width="50%"><div id="estabelecimento">Estabelecimento: </div></td>
+        				</tr>
+        				<tr>
+        					<td><div id="solicitante">Solicitante: </div></td>
+        					<td><div id="cCusto">C. Custo: </div></td>
+        				</tr>
+        				<tr>
+        					<td height="21"><div id="fornecedor">Favorecido: </div></td>
+        					<td><div id="fornecedor_h">C&oacute;d. Fornecedor: </div></td>
+        				</tr>
+        				<tr>
+        					<td><div id="dataVencimento">Vencto: </div></td>
+        					<td>&nbsp;</td>
+        				</tr>
+        			</table>
+        			<br>
+        			
+        			<div id="divTabela">
+        			</div>
+
+					<table width="100%" border="0">
+						<tr>
+							<td width="74%" align="right" class="style4">Total:</td>
+							<td width="26%" class="style4"><div id="valor">R$</div></td>
+						</tr>
+					</table>
+					<br>
+					
+					<table width="100%" border="1" cellpadding="2" cellspacing="0" bordercolor="#000000">
+						<tr>
+							<td colspan="3"><div id="observacoes">Observa&ccedil;&atilde;o:</div><br><br></td>
+						</tr>
+						<tr>
+							<td width="25%" valign="top"><div id="solicitante2">Solicitante: </div><br><br><br></td>
+							<td width="25%" valign="top"><div id="aprovador1">Aprovador 1: </div><br><br><br></td>
+							<td width="25%" valign="top"><div id="aprovador2"></div><br><br><br></td>
+      					</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</BODY>
+</HTML>

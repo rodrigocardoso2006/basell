@@ -1,0 +1,726 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Lyondellbasell</title>
+	<link href="/util/css/estilo.css" rel="stylesheet" type="text/css">
+	<link href="/util/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="/util/css/ex.css" type="text/css" />
+	<style type="text/css">
+		ul.tabnavs { 
+		    display:none;
+		    }
+		
+		@media print {
+		    ul.tabnavs { display: none; }
+		}
+	</style>
+	<script src="custom.js" type="text/javascript"></script>
+	<script src="/webdesk/vcXMLRPC.js" type="text/javascript"></script>
+	<script src="/util/js/mascara.js" type="text/javascript"></script>
+	<script src="/util/js/dw_tabs.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/util/js/util.js"></script>
+	<script type="text/javascript">
+		DYN_WEB.Tabs.setup({
+		    id: 'tabs',
+		    css: '/util/css/tabs.css',  
+		    useCookies: true
+		});
+	</script>
+	<script src="/util/js/jquery-1.9.0.js" type="text/javascript"></script>
+</head>
+<body>
+	<form name="formulario" id="formulario" METHOD="POST" >
+		<div id="conteudo">
+	  		<table width="50%" border="0">
+	   			<tr>
+	   				<td><img id="logo" src="/util/images/Logo.gif" border="0" /></td>
+	         		<td class="titRelatotio"><h1>Cliente/Fornecedor</h1></td>
+	            </tr>
+			</table>
+        	<table width="95%" border="0" align="center">
+	            <tr>	
+	            	<td class="tableLabel" width="160">Solicitante:</td>
+	                <td>
+	                  	<input name="matriculaSolicitante" id="matriculaSolicitante" type="hidden" />
+	                  	<input name="nomeSolicitante" id="nomeSolicitante" type="text" readonly class="readonly" size="32" maxlength="50" />
+	                </td>
+	            </tr>
+	            <tr>	
+	            	<td class="tableLabel" width="160">Data abertura:</td>
+	                <td>
+	                  	<input name="dataAbertura" id="dataAbertura" type="text" readonly class="readonly" size="11" maxlength="10" />&nbsp;
+	                </td>
+	            </tr>
+	            <tr>	
+	            	<td class="tableLabel" width="160">C&oacute;digo:</td>
+	                <td class="tableCellObrigado">
+	                  	<input name="cod_emitente" id="cod_emitente" type="text" readonly class="readonly" size="8" maxlength="25" value="0" />
+	              		<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCliente('cliente')" />
+	              		<img src="/util/images/clear.png" onclick="clearEmitente();" style="cursor:pointer;" >
+	                </td>
+	            </tr>
+	            <tr>	
+	            	<td class="tableLabel" width="160">Nome Abreviado:&nbsp;<font color="red">*</font>&nbsp;</td>
+	                <td class="tableCellObrigado">
+	                  	<input name="nome_abrev" id="nome_abrev" type="text"  size="25" maxlength="12"  />
+	                </td>
+	            </tr>
+	            <tr>	
+	            	<td class="tableLabel" width="160">Tipo cliente:&nbsp;<font color="red">*</font>&nbsp;</td>
+	                <td class="tableCellObrigado">
+	                  	<label><input name="tipoCliente" id="cliente" value="1" type="radio"  />Cliente</label>
+	                  	<label><input name="tipoCliente" id="fornecedor" value="2" type="radio"  />Fornecedor</label>
+	                  	<label><input name="tipoCliente" id="ambos" value="3" type="radio" />Ambos</label>
+	                </td>
+	            </tr>
+			</table>
+			<div id="tabs" class="tabset">
+			    <ul class="tabnavs">
+					<li><a href="#tabsCliente">Emitente</a></li>
+					<li><a href="#tabsFinanceiro">Financeiro</a></li>
+					<li><a href="#tabsConta">Conta corrente</a></li>
+					<li><a href="#tabsEndereco">Endere&ccedil;o</a></li>
+					<li><a href="#tabsComunicacao">Comunica&ccedil;&atilde;o</a></li>
+					<li><a href="#tabsFiscal">Fiscal</a></li>
+			    </ul>
+				<div id="tabsCliente" class="tabpane">
+					<table width="777" border="0" align="center">
+			            <tr>	
+			            	<td class="tableLabel">Nome:&nbsp;<font color="red">*</font>&nbsp;</td>
+			                <td colspan="3">				   
+			                  	<input name="nome" id="nome" type="text"  size="75" maxlength="40"  />
+			                </td>
+			            </tr>	
+			            <tr>	
+			            	<td class="tableLabel">Grupo cliente:</td>
+			                <td colspan="3">
+			                  	<input name="cod_grp" id="cod_grp" type="text"  size="10" maxlength="10" readonly class="readonly" />
+			              		<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomGrupoCliente('grupoCliente')" />
+								<input name="des_grp" id="des_grp" type="text"  size="50" readonly class="readonly" />
+			                </td>
+			            </tr>
+			            <tr>	
+			            	<td class="tableLabel">Grupo fornecedor:</td>
+			                <td colspan="3">
+			                  	<input name="cod_grp_forn" id="cod_grp_forn" type="text"  size="10" maxlength="10" readonly class="readonly" />
+			              		<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomGrupoFornec('grupoFornecedor')" />
+								<input name="des_grp_forn" id="des_grp_forn" type="text"  size="50" readonly class="readonly" />
+			                </td>
+			            </tr>
+						<tr>	
+			            	<td class="tableLabel">Matriz:</td>
+			                <td  colspan="3">
+			                  	<input name="cod_matriz" id="cod_matriz" type="text"  size="30" readonly class="readonly" />
+	              				<img id="btnMatriz" src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCliente('matriz')" />
+	              				<label><input name="matrizIgual" id="matrizIgual" type="checkbox" onclick="setMatriz(this)" value="yes">Cliente &eacute; a matriz</label>
+			                </td>
+						</tr><tr>	
+			            	<td class="tableLabel">Representante:</td>
+			                <td  colspan="3">
+			                  	<input name="cod_representante" id="cod_representante" type="text"  size="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomRepresentante('representante')" />
+								<input name="des_representante" id="des_representante" type="text"  size="30" readonly class="readonly" />
+			                </td>
+							
+						</tr>
+						<tr>	
+			            	<td style="display:none" class="tableLabel">Transportador Padr&atilde;o:</td>
+			                <td style="display:none">
+			                	<input name="cod_trans" id="cod_trans" type="text"  size="10" maxlength="10" readonly class="readonly" />
+	              				<input name="des_trans" id="des_trans" type="text"  size="30" readonly class="readonly" />
+			                </td>
+							<td class="tableLabel">Ramo Atividade:</td>
+			                <td>
+			                  	<input name="ramo_atividade" id="ramo_atividade" type="text"  size="30" />
+			                </td>
+			            </tr>
+						<tr style="display:none">	
+			            	<td class="tableLabel">Microregi&atilde;o:</td>
+			                <td colspan="3">
+			                  	<input name="micro_regiao" id="micro_regiao" type="text"  size="30" maxlength="30" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomMicroRegiao('microRegiao')" />&nbsp;
+			                </td>
+			            </tr>
+						<tr style="display:none" >	
+			            	<td class="tableLabel">Categoria:</td>
+			                <td>
+			                  	<input name="categoria" id="categoria" type="text"  size="6" maxlength="6"  />
+			                </td>
+							<td class="tableLabel">Transp Redespacho:</td>
+			                <td>
+			                  	<input name="transp_redespacho" id="transp_redespacho" type="text"  size="30" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomTransporte('redespacho')" />&nbsp;
+			                </td>
+			            </tr>
+						<tr>	
+			            	<td></td>
+			                <td colspan="3">
+								<textarea name="livre" id="livre" rows="3" cols="40"></textarea>
+			                </td>
+			            </tr>
+					</table>
+     			</div>
+				<div id="tabsFinanceiro" class="tabpane">
+			  		<table width="777" border="0" align="center">
+			            <tr>	
+			            	<td class="tableLabel">Portador:</td>
+			                <td colspan=3>				   
+			                  	<input name="cod_portador_port" id="cod_portador_port" type="text" size="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomPortador('portador')" />
+			                  	<input name="des_banco_port" id="des_banco_port" type="text"  size="40" readonly class="readonly" />
+								<select name="portador_port" id="portador_port">
+									<option value="1">Cb Simples</option>
+									<option value="2">Desconto</option>
+									<option value="3">Cau&ccedil;&atilde;o</option>
+									<option value="4">Judicial</option>
+									<option value="5">Repres</option>
+									<option value="6">Carteira</option>
+									<option value="7">Vendor</option>
+									<option value="8">Cheque</option>
+									<option value="9">Nota Promiss&oacute;ria</option>
+								</select>
+			                </td>
+			            </tr>	
+						<tr>	
+			            	<td class="tableLabel">Port Preferencial:</td>
+			                <td colspan=3>				   
+			                  	<input name="cod_portador_pref" id="cod_portador_pref" type="text"  size="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomPortador('portadorPref')" />
+			                  	<input name="des_banco_pref"  id="des_banco_pref" type="text"  size="40" readonly class="readonly"/>
+								<select name="portador_pref" id="portador_pref">
+									<option value="1">Cb Simples</option>
+									<option value="2">Desconto</option>
+									<option value="3">Cau&ccedil;&atilde;o</option>
+									<option value="4">Judicial</option>
+									<option value="5">Repres</option>
+									<option value="6">Carteira</option>
+									<option value="7">Vendor</option>
+									<option value="8">Cheque</option>
+									<option value="9">Nota Promiss&oacute;ria</option>
+								</select>
+			                </td>
+			            </tr>	
+						<tr>	
+			            	<td class="tableLabel">Instru&ccedil;&atilde;o Banc&aacute;ria:</td>
+			                <td >
+			                  	<input name="cod_banco1" id="cod_banco1" type="text"  size="10" maxlength="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomInstrucao('instrucao')" />
+								<input name="des_banco1" id="des_banco1" type="text"  size="50" readonly class="readonly" />
+			                </td>
+							<td colspan=2><label><input type="checkbox" name="emite_bloqueto" id="emite_bloqueto" value="yes" style="border:0px">Emite Bloqueto</label></td>
+			            </tr>	
+						 <tr>	
+							<td class="tableLabel">Dias Taxa Financeira:</td>
+			                <td colspan=3>				   
+			                  	<input name="dias_taxa" id="dias_taxa" type="text"  size="10" onkeypress="javascript:mascara(this,inteiro)" />
+			                </td>
+			            </tr>	
+						<tr>	
+			            	<td class="tableLabel">Tipo Pagamento:</td>
+			                <td colspan="3">				   
+			                  	<select name="tp_pagamento" id="tp_pagamento">
+									<option value="01">DOC</option>
+									<option value="02">Cr&eacute;dito Conta Corrente</option>
+									<option value="03">Cheque Administrativo</option>
+									<option value="04">Cobran&ccedil;a em Carteira</option>
+									<option value="05">Cheque Nominal</option>
+									<option value="06">D&eacute;bito em Conta Corrente</option>
+									<option value="07">Cart&atilde;o de Cr&eacute;dito</option>
+									<option value="08">Agendamento Eletr&ocirc;nico</option>
+								</select>
+			                </td>
+            			</tr>
+						<tr style="display:none" >	
+			            	<td class="tableLabel">Tp Desp Padr&atilde;o:</td>
+			                <td colspan="3">				   
+			                  	<input name="cod_desp_padrao" id="cod_desp_padrao" type="text"  size="10" readonly class="readonly" />
+	              				<input name="des_desp_padrao" id="des_desp_padrao"  type="text"  size="40" readonly class="readonly" />
+								
+			                </td>
+			            </tr>	
+						<tr>	
+			            	<td class="tableLabel">Receita Padr&atilde;o:</td>
+			                <td >				   
+			                  	<input name="cod_receita_padrao" id="cod_receita_padrao" type="text"  size="10" readonly class="readonly" />
+	              				<input name="des_receita_padrao" id="des_receita_padrao" type="text"  size="40" readonly class="readonly" />
+			                </td>
+							<td colspan=2><label><input type="checkbox" name="gera_aviso_debito" id="gera_aviso_debito" value="yes" style="border:0px">Gera Aviso D&eacute;bito</label></td>
+			            </tr>	
+						<tr>
+			            	<td class="tableLabel">Condi&ccedil;&atilde;o Pagamento:</td>
+			                <td >				   
+			                  	<input name="cod_cond_pagamento" id="cod_cond_pagamento" type="text"  size="10" readonly class="readonly" />
+	              				<input name="des_cond_pagamento" id="des_cond_pagamento" type="text"  size="40" readonly class="readonly" />
+			                </td>
+							<td colspan=2><label><input type="checkbox" name="calcula_multa" id="calcula_multa" value="yes" style="border:0px">Calcula Multa</label></td>
+			            </tr>	
+						<tr>	
+			            	<td colspan="2"> </td>
+							<td colspan=2><label><input type="checkbox" name="recebe_info_sci" id="recebe_info_sci" value="yes" style="border:0px">Recebe Informa&ccedil;&atilde;o SCI</label></td>
+			            </tr>	
+					</table>
+     			</div>
+				<div id="tabsConta" class="tabpane">
+			  		<table width="777" border="0" align="center">
+						<tr>	
+			            	<td class="tableLabel">Banco:</td>
+			                <td colspan=3>				   
+			                  	<input name="cod_banco_default" id="cod_banco_default" type="text"  size="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomBanco('banco')" />
+								<input name="des_banco_default" id="des_banco_default" type="text"  size="40" readonly class="readonly" />
+								
+			                </td>
+			            </tr>	
+						<tr>	
+			            	<td class="tableLabel">Ag&ecirc;ncia:&nbsp;<font color="red">*</font>&nbsp;</td>
+			                <td >				   
+			                  	<input name="agencia" id="agencia" type="text"  size="10" maxlength=6 onkeypress="javascript:mascara(this,formatAgencia)" onblur="javascript:completezero(this)" data-size="6" />-
+			                  	<input name="digitoagencia" id="digitoagencia" type="text" size="2" maxlength=1 />
+			                </td>
+							<td style="display:none" class="tableLabel">Valor M&iacute;nimo:</td>
+			                <td style="display:none"  >				   
+			                  	<input name="valor_minimo" id="valor_minimo" type="text"  size="10" onkeypress="javascript:mascara(this,valor)" />
+			                </td>	
+			            </tr>	
+						 <tr>	
+						 <td class="tableLabel">Conta Corrente:&nbsp;<font color="red">*</font>&nbsp;</td>
+			                <td>				   
+			                  	<input name="conta_corrente" id="conta_corrente" type="text"  size="14" maxlength=10 onkeypress="javascript:mascara(this,formatConta)" onblur="javascript:completezero(this)" data-size="10"/>-
+			                  	<input name="digitoconta" id="digitoconta" type="text" size="2" maxlength=1 onblur="javascript:completezero(this)" data-size="1" />
+			                </td>
+			            
+							<td style="display:none" class="tableLabel">Dias Atraso:</td>
+			                <td style="display:none" >				   
+			                  	<input name="dias_atraso" id="dias_atraso" type="text"  size="10" onkeypress="javascript:mascara(this,inteiro)" />
+			                </td>
+			            </tr>
+			        </table>	
+				</div>
+				<div id="tabsEndereco" class="tabpane">
+				   	<table width="777">
+						<tr>
+							<td class="tableLabel">Endere&ccedil;o:&nbsp;<font color="red">*</font>&nbsp;</td>
+							<td class="tableCellObrigado" width="180px">
+								<input type="text" name="endereco" id="endereco" size="30" maxlength=40>
+							</td>
+							<td class="tableLabel">N&uacute;mero:&nbsp;<font color="red">*</font>&nbsp;</td>
+							<td class="tableCellObrigado">
+								<input type="text" name="numero_1" id="numero_1" size="4">
+							</td>
+							<td class="tableLabel">
+								Pa&iacute;s:&nbsp;<font color="red">*</font>&nbsp;
+							</td>	
+							<td class="tableCellObrigado">
+								<input type="text" name="pais" id="pais" size="15" value="Brasil">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">Endere&ccedil;o 2:</td>
+							<td class="tableCellObrigado" width="180px">
+								<input type="text" name="endereco2" id="endereco" size="30" maxlength=40>
+							</td>
+							<td class="tableLabel">N&uacute;mero:</td>
+							<td class="tableCellObrigado" colspan="3">
+								<input type="text" name="numero_2" id="numero_2" size="4">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Bairro:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td class="tableCellObrigado">
+								<input type="text" name="bairro" id="bairro" size="20">
+							</td>
+							<td class="tableLabel">
+								Zip Code:
+							</td>
+							<td class="tableCellObrigado">
+								<input type="text" name="zip_code" id="zip_code" size="15">
+							</td>
+							<td class="tableLabel">
+								CEP:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td class="tableCellObrigado">
+								<input type="text" name="cep" id="cep" size="9" maxlength="9" onkeyup="FormataCEP(this,event)">
+								<a href="http://www.correios.com.br/servicos/cep/cep_loc_log.cfm" target="_blank" >
+									<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" />
+								</a >
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Cidade:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td class="tableCellObrigado">
+								<input type="text" name="cidade" id="cidade" size="25" readonly class="readonly" >
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCidade('cidade')" />&nbsp;
+							</td>
+							<td class="tableLabel">
+								UF:
+							</td>
+							<td class="tableCellObrigado">
+								<select name="uf" id="uf" >
+										<option value="AC">Acre</option>
+										<option value="AL">Alagoas</option>
+										<option value="AP">Amap&aacute;</option>
+										<option value="AM">Amazonas</option>
+										<option value="BA">Bahia</option>
+										<option value="CE">Cear&aacute;</option>
+										<option value="DF">Distrito Federal</option>
+										<option value="ES">Esp&iacute;rito Santo</option>
+										<option value="GO">Goi&aacute;s</option>
+										<option value="MA">Maranh&atilde;o</option>
+										<option value="MT">Mato Grosso</option>
+										<option value="MS">Mato Grosso do Sul</option>
+										<option value="MG">Minas Gerais</option>
+										<option value="PA">Par&aacute;</option>
+										<option value="PB">Para&iacute;ba</option>
+										<option value="PR">Paran&aacute;</option>
+										<option value="PE">Pernambuco</option>
+										<option value="PI">Piau&iacute;</option>
+										<option value="RJ">Rio de Janeiro</option>
+										<option value="RN">Rio Grande do Norte</option>
+										<option value="RS">Rio Grande do Sul</option>
+										<option value="RO">Rond&ocirc;nia</option>
+										<option value="RR">Roraima</option>
+										<option value="SC">Santa Catarina</option>
+										<option value="SP">S&atilde;o Paulo</option>
+										<option value="SE">Sergipe</option>
+										<option value="TO">Tocantins</option>
+										<option value="EX">Exterior</option>
+									</select>
+							</td>
+							<td class="tableLabel">
+								Caixa Postal:
+							</td>
+							<td>
+								<input type="text" name="cx_postal" id="cx_postal" size="10">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">End. Compl.:</td>
+							<td class="tableCellObrigado" colspan="5">
+								<textarea name="complenderecoentrega" id="complenderecoentrega" rows="3" cols="40"></textarea>
+							</td>
+						</tr>
+					</table>
+				   	<table width="777" >
+					   	<tr>
+					   		<td colspan="2">
+					   			<label><input type="checkbox" name="endereco_cobranca_igual" id="endereco_cobranca_igual" value="yes" checked style="border:0px"> Cobran&ccedil;a igual a Entrega</label>
+					   		</td>
+					   	</tr>
+						<tr>
+							<td class="tableLabel">
+								Cliente Cobran&ccedil;a:
+							</td>
+							<td>
+								<input name="cod_cliente_cobranca" id="cod_cliente_cobranca" type="text"  size="5" maxlength="10" readonly class="readonly" />
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCliente('clienteCob')" />
+								<input name="des_cliente_cobranca" id="des_cliente_cobranca" type="text"  size="25" readonly class="readonly" />
+							</td>
+							<td class="tableLabel">
+								UF:
+							</td>
+							<td>
+								<select name="uf_cobranca" id="uf_cobranca">
+									<option value="AC">Acre</option>
+									<option value="AL">Alagoas</option>
+									<option value="AP">Amap&aacute;</option>
+									<option value="AM">Amazonas</option>
+									<option value="BA">Bahia</option>
+									<option value="CE">Cear&aacute;</option>
+									<option value="DF">Distrito Federal</option>
+									<option value="ES">Esp&iacute;rito Santo</option>
+									<option value="GO">Goi&aacute;s</option>
+									<option value="MA">Maranh&atilde;o</option>
+									<option value="MT">Mato Grosso</option>
+									<option value="MS">Mato Grosso do Sul</option>
+									<option value="MG">Minas Gerais</option>
+									<option value="PA">Par&aacute;</option>
+									<option value="PB">Para&iacute;ba</option>
+									<option value="PR">Paran&aacute;</option>
+									<option value="PE">Pernambuco</option>
+									<option value="PI">Piau&iacute;</option>
+									<option value="RJ">Rio de Janeiro</option>
+									<option value="RN">Rio Grande do Norte</option>
+									<option value="RS">Rio Grande do Sul</option>
+									<option value="RO">Rond&ocirc;nia</option>
+									<option value="RR">Roraima</option>
+									<option value="SC">Santa Catarina</option>
+									<option value="SP">S&atilde;o Paulo</option>
+									<option value="SE">Sergipe</option>
+									<option value="TO">Tocantins</option>
+									<option value="EX">Exterior</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Endere&ccedil;o Cobran&ccedil;a:
+							</td>
+							<td width="180px">
+								<input type="text" name="endereco_cobranca" id="endereco_cobranca" size="30">
+							</td>
+							<td class="tableLabel">
+								Pa&iacute;s:
+							</td>	
+							<td>
+								<input type="text" name="pais_cobranca" id="pais_cobranca" size="15" value="Brasil">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Bairro:
+							</td>
+							<td>
+								<input type="text" name="bairro_cobranca" id="bairro_cobranca" size="20">
+							</td>
+							<td class="tableLabel">
+								CEP:
+							</td>
+							<td>
+								<input type="text" name="cep_cobranca" id="cep_cobranca" size="9" maxlength="9" onkeyup="FormataCEP(this,event)">&nbsp;
+								<a href="http://www.correios.com.br/servicos/cep/cep_loc_log.cfm" target="_blank">
+		              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" />
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Cidade:
+							</td>
+							<td>
+								<input type="text" name="cidade_cobranca" id="cidade_cobranca" size="25" readonly class="readonly" >
+	              				<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCidade('cidadeCob')" />&nbsp;
+							</td>
+								<td class="tableLabel">
+								Caixa Postal:
+							</td>
+							<td>
+								<input type="text" name="cx_postal_cobranca" id="cx_postal_cobranca" size="10">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">End. Cob. Compl.:</td>
+							<td class="tableCellObrigado" colspan="5">
+								<textarea name="complenderecocobranca" id="complenderecocobranca" rows="3" cols="40"></textarea>
+							</td>
+						</tr>
+					</table>
+	     		</div>
+				<div id="tabsComunicacao" class="tabpane">
+				  	<table width="777">
+						<tr>
+							<td class="tableLabel">
+								Telefone(1):&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td>
+								<input type="text" name="telefone1" id="telefone1" size="13" onkeypress="javascript:mascara(this,telefone)">
+							</td>
+							<td class="tableLabel">
+								Ramal(1):
+							</td>
+							<td>
+								<input type="text" name="ramal1" id="ramal1" size="25" onkeypress="javascript:mascara(this,inteiro)">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Telefone(2):
+							</td>
+							<td>
+								<input type="text" name="telefone2" id="telefone2" size="13" onkeypress="javascript:mascara(this,telefone)">
+							</td>
+							<td class="tableLabel">
+								Ramal(2):
+							</td>
+							<td>
+								<input type="text" name="ramal2" id="ramal2" size="25" onkeypress="javascript:mascara(this,inteiro)">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Telefax:
+							</td>
+							<td>
+								<input type="text" name="telefax"  id="telefax" size="13" onkeypress="javascript:mascara(this,telefone)">
+							</td>
+							<td class="tableLabel">
+								Ramal:
+							</td>
+							<td>
+								<input type="text" name="telefax_ramal" id="telefax_ramal" size="25" onkeypress="javascript:mascara(this,inteiro)">
+							</td>
+						</tr>
+						<tr style="display:none" >
+							<td class="tableLabel" style="display:none" >
+								Telefax(2):
+							</td>
+							<td style="display:none" >
+								<input type="text" name="telefax2" id="telefax2" size="13" onkeypress="javascript:mascara(this,telefone)">
+							</td>
+							<td class="tableLabel">
+								Ramal:
+							</td>
+							<td>
+								<input type="text" name="telefax_ramal2" id="telefax_ramal2" size="25" onkeypress="javascript:mascara(this,inteiro)">
+							</td>
+						</tr>
+						<tr style="display:none" >
+							<td class="tableLabel" >
+								Telefone Modem:
+							</td>
+							<td>
+								<input type="text" name="telefone_modem" id="telefone_modem" size="13" onkeypress="javascript:mascara(this,telefone)">
+							</td>
+							<td class="tableLabel">
+								Ramal:
+							</td>
+							<td>
+								<input type="text" name="ramal_modem" id="ramal_modem" size="25" onkeypress="javascript:mascara(this,inteiro)">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								E-mail:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td colspan="3">
+								<input type="text" name="email" id="email" size="90" onblur="validateEmail(this)">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">
+								Home page:
+							</td>
+							<td colspan="3">
+								<input type="text" name="home_page" id="home_page" size="90">
+							</td>
+						</tr>
+						<tr style="display:none" >
+							<td class="tableLabel">
+								Parceiro EDI:
+							</td>
+							<td>
+								<input type="text" name="parceiro_edi" id="parceiro_edi" size="20">
+							</td>
+						</tr>
+					</table>
+		    	</div>
+				<div id="tabsFiscal" class="tabpane">
+					<table width="777">
+				  		<tr>
+							<td class="tableLabel"> 
+								Natureza:
+							</td>
+							<td> 
+								<select name="natureza" id="natureza" onchange="changeNatureza(this.value)">
+									<option value="2">Pessoa Jur&iacute;dica</option>
+									<option value="1">Pessoa F&iacute;sica</option>
+									<option value="3">Estrangeiro</option>
+									<option value="4">Trading</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel"> 
+								CNPJ/CPF:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td class="tableCellObrigado"> 
+								<input type="text" name="cnpj" id="cnpj" maxlength="18" size=20 onkeypress="javascript:changeCpfCnpj(this)">&nbsp;<a href="http://www.sintegra.gov.br" target="_blank">Sintegra</a>&nbsp;<a href="http://www.receita.fazenda.gov.br/PessoaJuridica/CNPJ/cnpjreva/Cnpjreva_Solicitacao.asp"  target="_blank">RF</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel"> 
+								Inscri&ccedil;&atilde;o Municipal:
+							</td>
+							<td class="tableCellObrigado"> 
+								<input type="text" name="insc_mun" id="insc_mun" size="30">&nbsp;
+								<label><input type="checkbox" name="insc_mun_isento" id="insc_mun_isento" value="yes" size="30" style="border:0px;">&nbsp;Isento</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel"> 
+								Inscri&ccedil;&atilde;o Estadual:&nbsp;<font color="red">*</font>&nbsp;
+							</td>
+							<td> 
+								<input type="text" name="insc_est" id="insc_est" size="30" onkeypress="javascript:mascara(this,inteiro)" onblur="javascript:checkInscEstadual(this)">&nbsp;
+								<label><input type="checkbox" name="insc_est_isento" id="insc_est_isento" value="yes" size="30" style="border:0px;">&nbsp;Isento</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel"> 
+								CNPJ/CPF Cobran&ccedil;a:
+							</td>
+							<td class="tableCellObrigado"> 
+								<input type="text" name="cnpj_cobranca" id="cnpj_cobranca" maxlength="18" onkeypress="changeCpfCnpj(this)">&nbsp;<a href="http://www.sintegra.gov.br" target="_blank">Sintegra</a>&nbsp;<a href="http://www.receita.fazenda.gov.br/PessoaJuridica/CNPJ/cnpjreva/Cnpjreva_Solicitacao.asp"  target="_blank">RF</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel"> 
+								Inscri&ccedil;&atilde;o Estadual Cobran&ccedil;a:
+							</td>
+							<td> 
+								<input type="text" name="insc_est_cobranca" id="insc_est_cobranca" size="30">&nbsp;
+								<label><input type="checkbox" name="insc_est_cobranca_isento" value="yes" id="insc_est_cobranca_isento" size="30" style="border:0px;">&nbsp;Isento</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">Tributa&ccedil;&atilde;o PIS:</td>
+							<td>
+								<label><input type="radio" name="trib_pis" id="trib_pis_trib"  value="1" style="border:0px">Tributado</label>
+								<label><input type="radio" name="trib_pis" id="trib_pis_isento"  value="2" style="border:0px">Isento</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">Tributa&ccedil;&atilde;o COFINS:</td>
+							<td>
+								<label><input type="radio" name="trib_cofins" id="trib_cofins_trib"  value="1" style="border:0px">Tributado</label>
+								<label><input type="radio" name="trib_cofins" id="trib_cofins_isento"  value="2" style="border:0px">Isento</label>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<label><input type="checkbox" name="agente_retencao" id="agente_retencao" value="yes" style="border:0px">Agente Reten&ccedil;&atilde;o</label>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<label><input type="checkbox" name="contribuinte_icms" id="contribuinte_icms" value="yes" style="border:0px">Contribuinte ICMS</label>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<label><input type="checkbox" name="opt_cred_pre" id="opt_cred_pre" value="1" style="border:0px">Optante Cr&eacute;dito Presumido Situa&ccedil;&atilde;o Tribut&aacute;ria</label> 
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<label><input type="checkbox" name="emite_nfe" id="emite_nfe" value="yes" style="border:0px">Emite NF-e?</label>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<label><input type="checkbox" name="controla_vl_max" id="controla_vl_max" value="yes" style="border:0px">Controla Vl M&aacute;x INSS</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel">Situa&ccedil;&atilde;o:</td>
+							<td>
+								<label><input type="radio" name="fiscal_situacao" id="fiscal_situacao_ok" value="1" style="border:0px">Ok</label>
+								<label><input type="radio" name="fiscal_situacao" id="fiscal_situacao_suspenso" value="2" style="border:0px">Suspenso para Pagamentos</label>
+							</td>
+						</tr>
+			  		</table>
+			  	</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
+

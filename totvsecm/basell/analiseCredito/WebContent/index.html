@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<title>BRAVA - Holerite</title>
+	</head>
+	<body>
+		<form action="UploadFileHolerite" enctype="multipart/form-data" method="POST">
+			<table width="100%">
+				<tr>
+					<td width=80><img src="imgs/brava.png" border=0 /></td>
+					<td valign="middle"><h1>DEMONSTRATIVO DE RETIRADA</h1></td>
+				</tr>
+				<tr>
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="right"><label for="file1">Informe o arquivo CSV:</label></td>
+					<td><input type="file" name="file1" size=60></td>
+				</tr>
+				<tr>
+					<td align="right"><label for="file1">Informe o e-mail (separador ","):</label></td>
+					<td><input type="text" name="email" id="email" size=40></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<input type="submit" value="Enviar e-mails" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

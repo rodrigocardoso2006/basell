@@ -1,0 +1,20 @@
+INDEX VERSION 1.3+C:\workspace\basell\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3852802378.index
+2436065161.index
+2914156951.index
+2635937740.index
+4117712854.index
+520421182.index
+1691424598.index
+2362129436.index
+53529857.index
+2013713637.index
+3842675537.index
+3867635891.index
+3498028847.index
+775593714.index
+1800521662.index
+1368260849.index
+1744532587.index
+620865094.index
+3711244547.index

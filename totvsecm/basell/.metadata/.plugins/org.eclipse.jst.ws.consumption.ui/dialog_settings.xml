@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.jst.ws.client.type.java">
+		<item value="http://192.168.0.10:8180/webdesk/FolderService?wsdl"/>
+		<item value="http://192.168.0.10:8180/webdesk/DocumentService?wsdl"/>
+	</list>
+</section>
