@@ -1,0 +1,110 @@
+body { padding:5px 10px; font:10px/100% Verdana, Tahoma, sans-serif; font-size: 9px}
+
+/* tutorial */
+
+input, textarea, select, file { 
+	padding: 2px;
+	border: solid 1px #E5E5E5;
+	outline: 0;
+	height: 20px;
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+	background: #FFFFFF left top repeat-x;
+	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #FFFFFF), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #FFFFFF, #FFFFFF 1px, #FFFFFF 25px);
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+}
+
+textarea { 
+	width: 300px;
+	max-width: 400px;
+	height: 100px;
+	line-height: 150%;
+	}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus { 
+	border-color: #C9C9C9; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+	}
+
+label { 
+	margin-left: 10px; 
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+	vertical-align: middle;
+}
+.submit {
+	width: auto;
+	padding: 2px 15px;
+	background: #617798;
+	border: 0;
+	font-size: 10px;
+	color: #FFFFFF;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	}
+
+.tableLabel{
+	text-align:right;
+	background-color: #6495ED;
+	color: #FFFFFF; 
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+}
+
+.tableTitle{
+	text-align:center;
+	background-color: #6495ED;
+	color: #FFFFFF; 
+	font: normal 11px/100% Verdana, Tahoma, sans-serif;
+}
+
+.readonly{
+	padding: 2px;
+	border: solid 1px #E5E5E5;
+	outline: 0;
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+	background-color: #F8F8FF;
+}
+
+.tableCell{
+	background-color: #FFFFFF;
+}
+
+h1 {
+	text-align:right;
+	color: #1E90FF;
+	font-size: 16px;
+	align: center;
+	text-align: center;
+}
+
+.radio input { 
+	border: solid 0px #E5E5E5;
+	outline: 0;
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+	background: #FFFFFF url('bg_form.png') left top repeat-x;
+	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+}
+
+span {
+	font:10px/100% Verdana, Tahoma, sans-serif; font-size: 9px
+}
+
+.tableCellExcluido{
+	font-size: 10pt;
+	 background-color: #FF5050;
+}
+
+.tableCellNovo{
+	font-size: 10pt;
+	 background-color: #2EFE2E;
+}
+
+a {
+	font: normal 10px/100% Verdana, Tahoma, sans-serif;
+}

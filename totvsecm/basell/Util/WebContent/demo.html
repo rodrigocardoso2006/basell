@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Demo</title>
+<link rel="stylesheet" href="css/ex.css" type="text/css" />
+<style type="text/css">
+/* for js off, css on */
+ul.tabnavs { 
+    display:none;
+    }
+
+@media print {
+    ul.tabnavs { display: none; }
+}
+
+</style>
+<script src="js/dw_tabs.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+DYN_WEB.Tabs.setup({
+    id: 'tabset1', // if of tabset
+    css: 'css/tabs.css', // optional if you don't care about accessibility 
+    useCookies: true // optional
+});
+
+</script>
+</head>
+<body>
+
+<h1>Tabs Demo</h1>
+
+<div id="tabset1" class="tabset">
+
+    <ul class="tabnavs">
+        <li><a href="#one" class="activeTab">One</a></li>
+        <li><a href="#two">Two</a></li>
+        <li><a href="#three">Three</a></li>
+        <li><a href="#four">Four</a></li>
+        <!-- can put external url in tabs -->
+        <li><a href="http://www.dyn-web.com/">external url</a></li>
+    </ul>
+    
+    <div id="one" class="tabpane activePane">
+        <p>Content for tab one here.</p>
+    </div>
+    
+    <div id="two" class="tabpane">
+        <p>Content for tab two here</p>
+    </div>
+    
+    <div id="three" class="tabpane">
+        <p>Content for tab three here</p>
+    </div>
+    
+    <div id="four" class="tabpane">
+        <p>Content for tab four here</p>
+    </div>
+
+</div> <!-- end tabset -->
+
+
+
+<p>The code provides the capability to activate tabs elsewhere (not just by clicking tabs).</p>
+
+<ul>
+<!-- arguments to .showClicked: null, id of tabpane to display, id of tabset -->
+    <li>In-page link to select tab <a href="#two" onclick="return DYN_WEB.Tabs.showClicked(null, 'two', 'tabset1')">Two</a> above</li>
+
+<!-- query string data: name is tabset id, value is tab pane id -->
+    <li>External link to specify tab <a href="demo.html?tabset1=three">Three</a> in query string</li>
+</ul>
+
+
+<p>&nbsp;</p>
+<p>More <a href="http://www.dyn-web.com/code/tabs/">information</a> and <a href="http://www.dyn-web.com/code/tabs/documentation.php">documentation</a> is available online.</p>
+
+<p>Please read dyn-web's <a href="http://www.dyn-web.com/business/terms.php">Terms of Use</a> if you plan to use our code.</p>
+
+
+</body>
+</html>

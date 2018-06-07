@@ -1,0 +1,248 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="/util/css/estilo.css" rel="stylesheet" type="text/css">
+		<link href="/util/css/dhtmlxcalendar.css" rel="STYLESHEET" type="text/css">		
+		<link href="/util/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="/util/css/ex.css" type="text/css" />
+		<style type="text/css">
+			ul.tabnavs { 
+			    display:none;
+			    }
+			
+			@media print {
+			    ul.tabnavs { display: none; }
+			}
+		</style>
+		<script src="custom.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/util/js/dhtmlxcommon.js"></script>
+		<script type="text/javascript" src="/util/js/dhtmlxcalendar.js"></script>
+		<script type="text/javascript" src="/util/js/mascara.js"></script>
+		<script type="text/javascript" src="/util/js/util.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script src="/util/js/dw_tabs.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			DYN_WEB.Tabs.setup({
+			    id: 'tabs',
+			    css: '/util/css/tabs.css',  
+			    useCookies: true
+			});
+		</script>
+	</head>
+<body>
+	<form id="formulario" METHOD="POST" >
+	  	<div id="conteudo">
+   	  		<table width="95%" border="0" align="center">
+	        	<tr>
+	   				<td><img id="logo" src="/util/images/Logo.gif" border="0" /></td>
+	              	<td align="left" class="titRelatotio"><h1>Analise Seguran&ccedil;a do Trabalho</h1></td>
+	            </tr>
+      		</table>
+      		<table width="95%" border="0" align="center">
+	            <tr>	
+					<td class="tableLabel" align="right"><label>N&uacute;mero:</label></td>
+	                <td class="tableCell" width="120">
+	                  	<input name="numero" type="text" class="readonly" size="16" maxlength="16"  />
+					</td>
+			</table>
+			<br>
+			<table width="95%" border="0" align="center">
+				<tr>
+					<td width="35%" class="tableLabel" align="right"><label>Nome do funcion&aacute;rio:</label></td>
+					<td class="tableCell" width="260">
+						<input name="nom_func" type="text" class="readonly" size="80" readonly="true" />
+         				<input name="cod_func" type="hidden" size="80" />
+         			</td>
+				</tr>	 	
+				<tr>
+					<td class="tableLabel"><label>SSCA:</label></td>
+           			<td class="tableCell" width="260">
+           				<input name="nom_gestor" type="text" class="readonly" size="80" />
+           				<input name="cod_gestor" type="hidden" class="readonly" size="80" />
+           			</td>
+				</tr>	 	
+				<tr>
+					<td class="tableLabel"><label>Data:</label></td>
+           			<td class="tableCell" width="260">
+           				<input name="data" type="text" class="readonly" size="12" />
+           			</td>
+				</tr>	 	
+				<tr>
+					<td class="tableLabel"><label>Hora:</label></td>
+           			<td class="tableCell" width="260">
+           				<input name="hora" type="text" class="readonly" size="12" />
+           			</td>
+				</tr>	 	
+				<tr>
+					<td>&nbsp;</td>
+           			<td>&nbsp;</td>
+				</tr>	 	
+				<tr>
+					<td class="tableLabel"><label>&Aacute;rea verificada:</label></td>
+           			<td class="tableCell" width="260">
+           				<select id="area" name="area" onchange="javascript:change()" dataset="destinationArea" datasetkey="destinationAreaPK.areaID" datasetvalue="areaDescription" addBlankLine="true">
+           					<option value="">Selecione a área</option>
+						</select>
+           			</td>
+				</tr>	 	
+			</table>
+			<div id="tabs" class="tabset">
+			    <ul class="tabnavs">
+					<li><a href="#tabsVerificador">Verificador</a></li>
+					<li><a href="#tabsAnalise">An&aacute;lise seguran&ccedil;a do trabalho</a></li>
+					<li><a href="#tabsNearMiss">Near Miss</a></li>
+					<li><a href="#tabsConclusao">Confirmar conclus&atilde;o</a></li>
+			    </ul>
+				<div id="tabsVerificador" class="tabpane">
+					<table border="0" width="50%">
+   						<tr>	
+   							<td class="tableLabel" style="text-align:center"><label>Classifica&ccedil;&atilde;o do AAI</label></td>
+   						</tr>	
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" value="ai" id="classificacaaoAi"><label for="classificacaaoAi" style="margin-left: 0px;">AI - Ato inseguro</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" id="classificacaaoFp" value="fp"><label for="classificacaaoFp" style="margin-left: 0px;">FP - Fator pessoal de inseguran&ccedil;a</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" id="classificacaaoCi" value="ci"><label for="classificacaaoCi" style="margin-left: 0px;">CI - Condi&ccedil;&atilde;o insegura</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" id="classificacaaoAs" value="as"><label for="classificacaaoAs" style="margin-left: 0px;">AS - Ato seguro</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" id="classificacaaoSg" value="sg"><label for="classificacaaoSg" style="margin-left: 0px;">SG - Sugest&atilde;o</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="classificacao" id="classificacaaoSw" value="sw"><label for="classificacaaoSw" style="margin-left: 0px;">SW - Safety Walk</label>
+							</td>
+						</tr>
+					</table>
+					<br>
+					<table border="0" width="50%">
+         						<tr>	
+         							<td class="tableLabel" style="text-align:center"><label>Verifica&ccedil;&otilde;es</label></td>
+         						</tr>	
+         						<tr>	
+         							<td>&nbsp;</td>
+         						</tr>	
+         						<tr>	
+         							<td class="tableCell" style="text-align:center">
+         								<textarea name="atos" rows="5" cols="60">[Atos e condi&ccedil;&otilde;es observadas]</textarea>
+         							</td>
+         						</tr>	
+         						<tr>	
+         							<td>&nbsp;</td>
+         						</tr>	
+         						<tr>	
+         							<td class="tableCell" style="text-align:center">
+         								<textarea name="providencias" rows="5" cols="60">[Providencias tomadas]</textarea>
+         							</td>
+         						</tr>
+         					</table>	
+				</div>
+				<div id="tabsAnalise" class="tabpane">
+					<table border="0">
+						<tr>
+							<td class="tableLabel" style="text-align:center"><label>Classifica&ccedil;&atilde;o original:</label></td>
+		           			<td class="tableCell" width="260">
+		           				<input name="classificacao_origem" type="text" class="readonly" size="80" />
+		           			</td>
+			            </tr>	
+						<tr>
+							<td class="tableLabel" style="text-align:center"><label>Reclassifica&ccedil;&atilde;o pelo SSCA:</label></td>
+		           			<td class="tableCell" width="260">
+		           				<select name="reclassificacao" id="reclassificacao">
+	           						<option value="ai">AI - Ato inseguro</option>
+	           						<option value="fp">FP - Fator pessoal de inseguran&ccedil;a</option>
+	           						<option value="ci">CI - Condi&ccedil;&atilde;o insegura</option>
+	           						<option value="as">AS - Ato seguro</option>
+	           						<option value="sg">SG - Sugest&atilde;o</option>
+	           						<option value="nm">NM - Near Miss</option>
+	           					</select>
+		           			</td>
+			            </tr>	
+					</table>
+					<br>
+					<table border="0" width="50%">
+         				<tr>	
+         					<td class="tableLabel" style="text-align:center"><label>Classifica&ccedil;&atilde;o /Status NM</label></td>
+         				</tr>	
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="status_nm" id="statusProjeto" value="projeto" /><label for="statusProjeto" style="margin-left: 0px;">Projeto</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="status_nm" name="statusAndamento" value="andamento"><label for="statusAndamento" style="margin-left: 0px;">Em andamento</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableCell">
+								<input style="border:0px;height:14px" type="radio" name="status_nm" name="statusConcluido" value="concluido"><label for="statusConcluido" style="margin-left: 0px;">Conclu&iacute;do</label>
+							</td>
+						</tr>
+					</table>
+					<br>								
+					<table border="0" width="50%">
+    					<tr>	
+       						<td class="tableLabel" style="text-align:center"><label>Verifica&ccedil;&otilde;es</label></td>
+       					</tr>	
+       					<tr>	
+       						<td>&nbsp;</td>
+       					</tr>	
+       					<tr>	
+       						<td class="tableCell" style="text-align:center">
+       							<textarea name="observacoes_ssca" rows="5" cols="60">[Observa&ccedil;&otilde;es SSCA]</textarea>
+       						</td>
+       					</tr>
+       				</table>	
+				</div>
+				<div id="tabsNearMiss" class="tabpane">
+  							<table border="0" width="50%">
+         						<tr>	
+         							<td class="tableLabel" style="text-align:center"><label>Verifica&ccedil;&otilde;es</label></td>
+         						</tr>	
+         						<tr>	
+         							<td>&nbsp;</td>
+         						</tr>	
+         						<tr>	
+         							<td class="tableCell" style="text-align:center">
+         								<textarea name="obs_ssca_miss" rows="5" cols="60">[Observa&ccedil;&otilde;es SSCA]</textarea>
+         							</td>
+         						</tr>
+         					</table>	
+  						</div>
+						<div id="tabsConclusao" class="tabpane">
+							<table border="0" width="50%">
+         						<tr>	
+         							<td class="tableLabel" style="text-align:center"><label>Aceita a conclus&atilde;o do trabalho?</label></td>
+         						</tr>	
+         						<tr>	
+         							<td>&nbsp;</td>
+         						</tr>	
+         						<tr>	
+         							<td class="tableCell" style="text-align:center">
+         								<input style="border:0px;height:14px" type="radio" name="aceite" id="aceiteSim" value="sim"><label for="aceiteSim" style="margin-left: 0px;">Sim</label>
+         								<input style="border:0px;height:14px" type="radio" name="aceite" id="aceiteNao" value="nao"><label for="aceiteNao" style="margin-left: 0px;">N&atilde;o</label>
+         							</td>
+         						</tr>
+         					</table>	
+  						</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

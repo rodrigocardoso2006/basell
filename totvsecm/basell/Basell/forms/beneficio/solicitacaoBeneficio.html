@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="/util/css/estilo.css" rel="stylesheet" type="text/css">
+		<link href="/util/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+		<script src="custom.js" type="text/javascript"></script>
+		<script src="/util/js/jquery-1.9.0.js" type="text/javascript"></script>
+		<script src="/util/js/jquery.mask.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/util/js/mascara.js"></script>
+		<script type="text/javascript" src="/util/js/util.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+	</head>
+<body onload="init()">
+	<form id="formulario" METHOD="POST" >
+		<input type="hidden" name="listaBeneficio" id="listaBeneficio" />
+		<input type="hidden" name="saldoBeneficio" id="saldoBeneficio" />
+	  	<div id="conteudo">
+   	  		<table width="95%" border="0" align="center">
+	        	<tr>
+	   				<td width="100"><img id="logo" src="/util/images/Logo.gif" border="0" /></td>
+	              	<td align="left" class="titRelatotio"><h1 data-translate="title">Solicita&ccedil;&atilde;o de benef&iacute;cio</h1></td>
+	            </tr>
+      		</table>
+			<br>
+			<table width="95%" border="0" align="center">
+	            <tr>	
+					<td class="tableLabel" align="right"><label data-translate="funcionario">Funcion&aacute;rio:</label></td>
+	                <td class="tableCell" width="120">
+	                  	<input name="nome" id="nome" type="text" size="40" maxlength="64" readonly class="readonly" />
+	                  	<input name="matricula" id="matricula" type="hidden" />
+					</td>
+				</tr>
+				<tr>
+					<td width="35%" class="tableLabel" align="right"><label data-translate="matricula">Matricula:</label></td>
+					<td class="tableCell" width="260">
+						<input name="matriculaRh" id="matriculaRh" type="text" size="20" readonly class="readonly" />
+         			</td>
+				</tr>	 	
+				<tr>
+					<td class="tableLabel"><label>Centro custo:</label></td>
+           			<td class="tableCell" width="260">
+						<input name="centroCusto" id="centroCusto" type="text" size="24" readonly class="readonly"  />
+           			</td>
+				</tr>	 	
+				<tr>
+					<td width="35%" class="tableLabel" align="right"><label>M&ecirc;s:</label></td>
+					<td class="tableCell" width="260">
+					<input name="mes" id="mes" type="text" size="10" readonly class="readonly" />&nbsp;/&nbsp;<input name="ano" id="ano" type="text" size="5" readonly class="readonly" />
+         			</td>
+				</tr>	 	
+			</table>
+        	<table width="95%" border="0" align="center">
+        		<tr>
+        			<td>
+        				<input type="button" onclick="javascript:incluir('tbItem')" value="Adicionar beneficio" id="btnAddBeneficio" />
+        			</td>
+        		</tr>
+        	</table>
+			<table width="95%" id="tbItem" tablename="tbItem" border=0 noaddbutton="true">
+				<tr>
+					<th class="tableTitle">Item</th>
+					<th class="tableTitle">Beneficio</th>
+					<th class="tableTitle">Data<br>limite</th>
+					<th class="tableTitle">M&ecirc;s<br>compet&ecirc;ncia</th>
+					<th class="tableTitle">Benefici&aacute;rio</th>
+					<th class="tableTitle">Valor<br>despesa</th>
+					<th class="tableTitle">Valor<br>reembolso</th>
+					<th class="tableTitle">Total<br>Solic<br>Reembolso</th>
+					<th class="tableTitle">Total<br>Aprovado<br>Reembolso</th>
+					<th class="tableTitle">Saldo<br>disponivel</th>
+				</tr>
+				<tr>
+					<td>
+						<input id="sequencia" name="sequencia" type="text" size=5 readonly class="readonly" />
+					</td>
+					<td>
+						<input id="nomeBeneficio" name="nomeBeneficio" type="text" size=16 readonly class="readonly" />
+                 		<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomBeneficio(this, 'beneficio')" />
+                 		<input id="valorLimite" name="valorLimite" type="hidden" />
+                 		<input id="tipoIntervalo" name="tipoIntervalo" type="hidden" />
+                 		<input id="periodoAnual" name="periodoAnual" type="hidden" />
+                 		<input id="periodoMensalInicial" name="periodoMensalInicial" type="hidden" />
+                 		<input id="periodoMensalFinal" name="periodoMensalFinal" type="hidden" />
+                 		<input id="percentualDependente" name="percentualDependente" type="hidden" />
+                 		<input id="codigoEvento" name="codigoEvento" type="hidden" />
+                 		
+					</td>
+					<td>
+						<input id="dataLimite" name="dataLimite" type="text" size=11 readonly class="readonly" />
+					</td>
+					<td>
+						<input id="mesCompetencia" name="mesCompetencia" type="text" size=12 readonly class="readonly" />
+					</td>
+					<td>
+           				<label><input style="border:0px;height:14px" name="beneficiario" type="radio" id="beneficiarioTitular" onclick="changeBeneficiario(this)" value="1" />Titular</label><br>
+           				<label><input style="border:0px;height:14px" name="beneficiario" type="radio" id="beneficiarioDependente" onclick="changeBeneficiario(this)" value="2" />Dependente</label>
+					</td>
+					<td>
+						<input id="valorDespesa" name="valorDespesa" type="text" size=12 onblur="changeDespesa(this)" />
+					</td>
+					<td>
+						<input id="valorReembolso" name="valorReembolso" type="text" size=12 readonly class="readonly" />
+					</td>
+					<td>
+						<input id="totalReembolso" name="totalReembolso" type="text" size=12 readonly class="readonly" />
+					</td>
+					<td>
+						<input id="totalAprovado" name="totalAprovado" type="text" size=12 readonly class="readonly" />
+					</td>
+					<td>
+						<input id="saldoDisponivel" name="saldoDisponivel" type="text" size=12 readonly class="readonly" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

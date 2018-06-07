@@ -1,0 +1,448 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="/util/css/estilo.css" rel="stylesheet" type="text/css">
+		<link href="/util/css/dhtmlxcalendar.css" rel="STYLESHEET" type="text/css">		
+		<link href="/util/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="/util/css/ex.css" type="text/css"></link>
+		<style type="text/css">
+			ul.tabnavs { 
+			    display:none;
+			    }
+			
+			@media print {
+			    ul.tabnavs { display: none; }
+			}
+		</style>
+		<script src="custom.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/util/js/dhtmlxcommon.js"></script>
+		<script type="text/javascript" src="/util/js/dhtmlxcalendar.js"></script>
+		<script type="text/javascript" src="/util/js/mascara.js"></script>
+		<script type="text/javascript" src="/util/js/util.js"></script>
+		<script src="/util/js/jquery-1.9.0.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/util/js/util.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script src="/util/js/dw_tabs.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/util/js/moment.js"></script>
+		<script type="text/javascript">
+			DYN_WEB.Tabs.setup({
+			    id: 'tabs',
+			    css: '/util/css/tabs.css',  
+			    useCookies: true
+			});
+		</script>
+	</head>
+<body onload="javascript:init()">
+	<form name="formulario" id="formulario" METHOD="POST" >
+		<input type="hidden" name="primeira_faixa" id="primeira_faixa" >
+		<input type="hidden" name="segunda_faixa" id="segunda_faixa" >
+		<input type="hidden" name="usuarioAtual" id="usuarioAtual" >
+		<input type="hidden" name="atividadeAtual" id="atividadeAtual" >
+		<input type="hidden" name="analistaCredito" id="analistaCredito" >
+		<input type="hidden" name="pastaCliente" id="pastaCliente" />
+		<input type="hidden" name="numProcesso" id="numProcesso" />
+		<input type="hidden" name="dataProcesso" id="dataProcesso" />
+		<input type="hidden" name="qtdetabelaHistorico" id="qtdetabelaHistorico" />
+		<input type="hidden" name="qtdetbFinanceiro" id="qtdetbFinanceiro" />
+		<input type="hidden" name="cod_rep" id="cod_rep" />
+		<input type="hidden" name="documento1" id="documento1" />
+		<input type="hidden" name="documento2" id="documento2" />
+		<input type="hidden" name="documento3" id="documento3" />
+		<input type="hidden" name="documento4" id="documento4" />
+		<input type="hidden" name="documento5" id="documento5" />
+		<input type="hidden" name="documento6" id="documento6" />
+		<input type="hidden" name="documento7" id="documento7" />
+		<input type="hidden" name="documento8" id="documento8" />
+		<input type="hidden" name="documento9" id="documento9" />
+		<input type="hidden" name="documento10" id="documento10" />
+		<input type="hidden" name="documento11" id="documento11" />
+		<input type="hidden" name="documento12" id="documento12" />
+		<input type="hidden" name="documento13" id="documento13" />
+		<input type="hidden" name="documento14" id="documento14" />
+		<input type="hidden" name="documento15" id="documento15" />
+		<input type="hidden" name="documento16" id="documento16" />
+		<input type="hidden" name="justificativa1" id="justificativa1" />
+		<input type="hidden" name="justificativa2" id="justificativa2" />
+		<input type="hidden" name="justificativa3" id="justificativa3" />
+		<input type="hidden" name="justificativa4" id="justificativa4" />
+		<input type="hidden" name="justificativa5" id="justificativa5" />
+		<input type="hidden" name="justificativa6" id="justificativa6" />
+		<input type="hidden" name="justificativa7" id="justificativa7" />
+		<input type="hidden" name="justificativa8" id="justificativa8" />
+		<input type="hidden" name="justificativa9" id="justificativa9" />
+		<input type="hidden" name="justificativa10" id="justificativa10" />
+		<input type="hidden" name="justificativa11" id="justificativa11" />
+		<input type="hidden" name="justificativa12" id="justificativa12" />
+		<input type="hidden" name="justificativa13" id="justificativa13" />
+		<input type="hidden" name="justificativa14" id="justificativa14" />
+		<input type="hidden" name="justificativa15" id="justificativa15" />
+		<input type="hidden" name="justificativa16" id="justificativa16" />
+  		<div id="conteudo">
+	  		<table width="50%" border="0">
+	   			<tr>
+	   				<td><img id="logo" src="/util/images/Logo.gif" border="0" /></td>
+	         		<td align="center" class="titRelatotio"><h1 data-translate="titulo">An&aacute;lise de Cr&eacute;dito</h1></td>
+	            </tr>
+			</table>
+	        <table border="0" >
+	            <tr>	
+					<td class="tableLabel" width="160"><label data-translate="cliente">Cliente:</label></td>
+	                <td class="tableCell">
+	                	<input name="codigoCliente" id="codigoCliente" type="text"  size="10" maxlength="10" readonly class="readonly" />
+	              		<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCliente('cliente')" />
+	              	</td>
+	              	<td class="tableCell">
+	              		<input name="nomeAbreviado" id="nomeAbreviado" type="text"  size="16" maxlength="16" readonly class="readonly" />
+	                </td>
+	                <td class="tableCell">
+	                  	<input name="nomeEmitente" id="nomeEmitente" type="text"  size="60" maxlength="60" readonly class="readonly" />
+	                </td>
+	            </tr>
+	        </table>
+			<div id="tabs" class="tabset">
+			
+			    <ul class="tabnavs">
+					<li><a href="#tabsCliente" data-translate="cliente">Cliente</a></li>
+					<li><a href="#tabsReferencias" data-translate="referencias">Refer&ecirc;ncias</a></li>
+					<li><a href="#tabsDocumentos" data-translate="documentos">Documentos</a></li>
+					<li><a href="#tabsAnalise" data-translate="analise">An&aacute;lise</a></li>
+<!--  					<li><a href="#tabsHistorico" data-translate="historicofinanceiro">Hist&oacute;rico financeiro</a></li> -->
+			    </ul>
+				<div id="tabsCliente" class="tabpane">
+					<table width="100%">
+		            	<tr>
+		            		<td width=50%>
+		            			<table border="0">
+		            				<tr>
+		            					<td class="tableLabel"><label data-translate="datacreditoparametro">Data cr&eacute;dito par&acirc;metro:</label></td>
+		                            	<td>				   
+		                              		<input name="dataParametro" id="dataParametro" type="text" size="10" maxlength="10" readonly class="readonly" />
+		                            	</td>
+		            			 	</tr>	 	
+		                        	<tr>	
+		            					<td class="tableLabel"><label data-translate="datalimiteconcedida">Data limite concedida:</label></td>
+		                            	<td>				   
+		                              		<input name="dt_analise" id="dt_analise" type="text"  size="10" maxlength="10"  onkeypress="mascara(this,data)" maxlength="10" />
+		                            	</td>
+		                        	</tr>	 	
+		            			</table>
+		            			<br>
+		            			<table border="0">
+		                        	<tr>	
+		                        		<td class="tableLabel" style="text-align:center" width=200 data-translate="origemanalise">Origem An&aacute;lise</td>
+		            					<td class="tableLabel" style="text-align:center" width=200 data-translate="classificacao">Classifica&ccedil;&atilde;o</td>
+		            					<td class="tableLabel" style="text-align:center" width=200 data-translate="segmento">Segmento</td>
+		                        	</tr>	
+		            				<tr>
+			            				<td class="tableCell">
+			            					<label><input style="border:0px" type="radio" name="origem_analise" id="novo_cliente" value="1" onclick="javascript:changeOrigem(this)"><span data-translate="novocliente">Novo Cliente</span></label>
+			            				</td>
+			            				<td><label><input style="border:0px" type="radio" name="classificacao" id="estrela3" value="3"><span data-translate="3estrelas">3 Estrelas</span></label></td>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="segmento" id="automativo" value="1"><span data-translate="automotivo">Automotivo</span></label></td>
+		            				</tr>
+		            				<tr>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="origem_analise" id="alteracao_limite" value="2" onclick="javascript:changeOrigem(this)"><span data-translate="alteracaolimite">Altera&ccedil;&atilde;o Limite</span></label></td>
+			            				<td><label><input style="border:0px" type="radio" name="classificacao" id="estrela2" value="2"><span data-translate="2estrelas">2 Estrelas</span></label></td>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="segmento" id="linhaBranca" value="2"><span data-translate="linhabranca">Linha Branca</span></label></td>
+		            				</tr>
+		            				<tr>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="origem_analise" id="renovacao_anual" value="3" onclick="javascript:changeOrigem(this)"><span data-translate="renovacaoanual">Renova&ccedil;&atilde;o Anual</span></label></td>
+			            				<td><label><input style="border:0px" type="radio" name="classificacao" id="estrela1" value="1"><span  data-translate="1estrela">1 Estrela</span></label></td>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="segmento" id="outros" value="3"><span data-translate="outros">Outros</span></label></td>
+		            				</tr>
+		            				<tr>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="origem_analise" id="zera_limite" value="4" onclick="javascript:changeOrigem(this)"><span data-translate="zeralimitecredito">Zera Limite Cr&eacute;dito</span></label></td>
+			            				<td>&nbsp;</td>
+			            				<td class="tableCell">&nbsp;</td>
+		            				</tr>
+		            				<tr>
+			            				<td class="tableCell"><label><input style="border:0px" type="radio" name="origem_analise" id="reducao_limite" value="5" onclick="javascript:changeOrigem(this)"><span data-translate="reducaolimite">Redu&ccedil;&atilde;o Limite</span></label></td>
+			            				<td>&nbsp;</td>
+			            				<td class="tableCell">&nbsp;</td>
+		            				</tr>
+		            			</table>
+		            			<br>
+		            			<table border="0">
+		            				<tr>
+		            					<td class="tableLabel" data-translate="limiteatual">Limite Atual:</td>
+		            					<td><input type="text" name="ind_cre_cli" id="ind_cre_cli" size="20" readonly class="readonly" ></td>
+		            				</tr>
+		            				<tr>
+		            					<td class="tableLabel" data-translate="limitesolicitado">Limite Solicitado:</td>
+		            					<td><input type="text" name="limite_solicitado" id="limite_solicitado" size="20" onkeypress="mascara(this,valor)" onfocusout="altera_limite();"></td>
+		            				</tr>
+		            				<tr>
+		            					<td class="tableLabel" data-translate="limiteconcedido">Limite Concedido:</td>
+		            					<td><input type="text" name="limite_concedido" id="limite_concedido" size="20" onkeypress="mascara(this,valor)" onfocusout="altera_limite();"></td>
+		            				</tr>
+		            				<tr>
+		            					<td class="tableLabel" data-translate="condicaopagamento">Condi&ccedil;&atilde;o Pagamento:</td>
+		            					<td>
+		            						<input name="cod_cond_pagamento" id="cod_cond_pagamento" type="text"  size="10" readonly class="readonly" />
+	              							<img src="/util/images/zoom.png" alt="Pesquisar" border="0" style="cursor:pointer;" onclick="openZoomCondicaoPagamento('condicaoPagamento')" />
+		            						<input name="des_cond_pagamento" id="des_cond_pagamento" type="text"  size="40" readonly class="readonly" />
+		            					</td>
+		            				</tr>
+		            				<tr>
+		            					<td class="tableLabel" data-translate="taxafinanceira">Taxa Financeira:</td>
+		            					<td>
+		            						<input name="dias_taxa" id="dias_taxa" type="text"  size="10" onkeypress="mascara(this,inteiro)" />
+		            					</td>
+		            				</tr>
+		            			</table>
+		            			<br>
+		            			<table border="0" width="100%">
+		            				<tr>
+		            					<td width="50%">
+		            						<table>
+		            							<tr>
+		            								<td class="tableLabel"  style="text-align:center" data-translate="sharelbi">Share LYB (%)</td>
+		            								<td class="tableLabel"  style="text-align:center" data-translate="concorrente">Concorrente (%)</td>
+		            							</tr>
+		            							<tr>
+		            								<td style="text-align:center"><input type="text" name="share_lbi" id="share_lbi" style="font-size:36px;text-align:center;height: 40px" size="3" maxlength="3" onkeypress="mascara(this,inteiro)" ></td>
+		            								<td style="text-align:center"><input type="text" name="share_concorrente" id="share_concorrente" style="font-size:36px;text-align:center;height: 40px" size="3" maxlength="3" onkeypress="mascara(this,inteiro)" ></td>
+		            							</tr>
+		            						</table>
+		            					</td>
+		            					<td width="50%">
+		            						<table>
+		            							<tr>
+		            								<td class="tableLabel"  style="text-align:center" colspan="3" data-translate="vendaslbiparacliente">Vendas LYB para Cliente</td>
+		            							</tr>
+		            							<tr>
+		            								<td width="33%"></td>
+		            								<td width="33%" class="tableLabel"  style="text-align:center" data-translate="quantidadeton">Quantidade(ton)</td>
+		            								<td width="33%" class="tableLabel"  style="text-align:center" data-translate="valorr">Valor(R$)</td>
+		            							</tr>
+		            							<tr>
+		            								<td class="tableLabel" data-translate="atual">Atual:</td>
+		            								<td align="center"><input type="text" size="12" name="quantidade_atual" id="quantidade_atual" onkeypress="mascara(this,inteiro)" ></td>
+		            								<td align="center"><input type="text" size="12" name="valor_atual" id="valor_atual" onkeypress="mascara(this,valor)" ></td>
+		            							</tr>
+		            							<tr>
+		            								<td class="tableLabel" data-translate="previsao">Previs&atilde;o:</td>
+		            								<td align="center"><input type="text" size="12" name="quantidade_previsao" id="quantidade_previsao" onkeypress="mascara(this,inteiro)" ></td>
+		            								<td align="center"><input type="text" size="12" name="valor_previsao" id="valor_previsao" onkeypress="mascara(this,valor)" ></td>
+		            							</tr>
+		            						</table>
+		            					</td>
+		            				</tr>
+		            				<tr>
+		            					<td class="tableLabel" style="text-align:right" data-translate="justificativa">Justificativa:</td>
+		            					<td>
+		                            		<textarea name="justificativa" id="justificativa" readonly rows=4 cols=60></textarea>
+		                        		</td>
+		                    		</tr>
+		            			</table>
+		                 	</td>
+		                 	<td valign="top">
+		                 		<table id="tabelaHistorico" tablename="tabelaHistorico" width="350" noaddbutton="true">
+		                 			<tr>
+			                 			<th class="tableTitle" data-translate="nrprocesso">Nr Processo</th>
+			                 			<th class="tableTitle" data-translate="data">Data</th>
+			                 			<th class="tableTitle" data-translate="limitecreditoanterior">Limite cr&eacute;dito anterior</th>
+			                 			<th class="tableTitle" data-translate="limiteconcedido">Limite concedido</th>
+			                 		</tr>
+			                 		<tr>
+			                 			<td align="center"><input type="text" name="hProcesso" id="hProcesso" readonly class="readonly" size=7 onclick="openProcesso(this.value)" style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="hData" id="hData" readonly class="readonly" size="11" style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="hSolicitado" id="hSolicitado" readonly class="readonly" size="11" style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="hConcedido" id="hConcedido" readonly class="readonly" size="11" style="text-align: center" /></td>
+			                 		</tr>
+		                 		</table>
+		                 		<br>
+		                 		<div class="tableTitle" data-translate="filiaisdocliente">Filiais do cliente</div>
+		                 		<table id="tabelaFilial" tablename="tabelaFilial" width="350" noaddbutton="true">
+		                 			<tr>
+			                 			<th class="tableTitle" data-translate="codigo">C&oacute;digo</th>
+			                 			<th class="tableTitle" data-translate="nome">Nome</th>
+			                 		</tr>
+			                 		<tr>
+			                 			<td align="center"><input type="text" name="fCodigo" id="fCodigo" readonly class="readonly" size=7 style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="fNome" id="fNome" readonly class="readonly" size="25" style="text-align: center" /></td>
+			                 		</tr>
+		                 		</table>
+		                 	</td>
+		             	</tr>
+       					</table>
+				</div>
+				<div id="tabsReferencias" class="tabpane">
+					<table border="0"  >
+			            <tr>	
+			            	<td class="tableLabel" style="text-align:center" data-translate="fidelidadecliente">Fidelidade Cliente:</td>
+							<td class="tableLabel" style="text-align:center" data-translate="administracao">Administra&ccedil;&atilde;o:</td>
+							<td class="tableLabel" style="text-align:center" data-translate="instalacoes">Instala&ccedil;&otilde;es:</td>
+							<td class="tableLabel" style="text-align:center" data-translate="pontualidadecliente">Pontualidade Cliente:</td>
+			            </tr>	
+						<tr>
+							<td><input style="border:0px" type="radio" name="fidelidade_cliente" id="sim" value="1"><label data-translate="sim">Sim</label></td>
+							<td><input style="border:0px" type="radio" name="administracao" id="familiar" value="1"><label data-translate="familiar">Familiar</label></td>
+							<td><input style="border:0px" type="radio" name="instalacoes" id="proprias" value="1"><label data-translate="proprias">Pr&oacute;prias</label></td>
+							<td><input style="border:0px" type="radio" name="pontualidade" id="excelente" value="1"><label data-translate="excelente">Excelente</label></td>
+						</tr>
+						<tr>
+							<td><input style="border:0px" type="radio" name="fidelidade_cliente" id="nao" value="2"><label data-translate="nao">N&atilde;o</label></td>
+							<td><input style="border:0px" type="radio" name="administracao" id="profissional" value="2"><label data-translate="profissional">Profissional</label></td>
+							<td><input style="border:0px" type="radio" name="instalacoes" id="alugadas" value="2"><label data-translate="alugadas">Alugadas</label></td>
+							<td><input style="border:0px" type="radio" name="pontualidade" id="bom" value="2"><label data-translate="bom">Bom</label></td>
+						</tr>
+						<tr>
+							<td><input style="border:0px" type="radio" name="fidelidade_cliente" id="parcial" value="3"><label data-translate="parcial">Parcial</label></td>
+							<td><input style="border:0px" type="radio" name="administracao" id="mista" value="3"><label data-translate="mista">Mista</label></td>
+							<td><input style="border:0px" type="radio" name="instalacoes" id="financiadas" value="3"><label data-translate="financiadas">Financiadas</label></td>
+							<td><input style="border:0px" type="radio" name="pontualidade" id="regular" value="3"><label data-translate="regular">Regular</label></td>
+						</tr>
+					</table>
+					<BR>
+					<table border="0">
+						<tr>
+							<td>
+								<table border="0">
+									<tr>
+										<td class="tableLabel" style="text-align:center" data-translate="principaisclientes">Principais Clientes:</td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_cliente" id="principal_cliente" size="50"></td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_cliente2" id="principal_cliente2" size="50"></td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_cliente3" id="principal_cliente3" size="50"></td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table border="0">
+									<tr>
+										<td class="tableLabel" style="text-align:center" data-translate="principaisfornecedores">Principais Fornecedores:</td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_fornecedor" id="principal_fornecedor"  size="50"></td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_fornecedor2" id="principal_fornecedor2"  size="50"></td>
+									</tr>
+									<tr>
+										<td style="text-align:center"><input type="text" name="principal_fornecedor3" id="principal_fornecedor3"  size="50"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableLabel" style="text-align:center" colspan="2" data-translate="comentariossobreocliente">Coment&aacute;rios sobre o cliente</td>
+						</tr>
+						<tr>
+							<td style="text-align:center" colspan="2"><textarea name="livre" id="livre" style="width:450px;height:40px"></textarea></td>
+						</tr>
+					</table>
+				</div>
+				<div id="tabsDocumentos" class="tabpane">
+					<iframe id="ifDocumentos" width="777" height="800" frameborder=0 scrolling="no"></iframe>
+				</div>
+				<div id="tabsAnalise" class="tabpane">
+			        <table border="0" style="width: 777">
+			            <tr>
+				            <td class="tableLabel" data-translate="classederisco">Classe de risco:</td>
+				            <td><input type="text" name="classeRisco" id="classeRisco" size="2" maxlength="1" style="font-size:36px;text-align:center;height: 40px" class="readonly" readonly /></td>
+				        </tr>
+			            <tr>
+			            	<td>&nbsp;</td>
+			            	<td>
+			            		<input style="border:0px" type="radio" name="radioClasseRisco" id="riscoA" value="A" onclick="document.getElementById('classeRisco').value=this.value" /><label for="riscoA" data-translate="a.baixo">A - Baixo</label>
+								<input style="border:0px" type="radio" name="radioClasseRisco" id="riscoB" value="B" onclick="document.getElementById('classeRisco').value=this.value"><label for="riscoB" data-translate="b.mediobaixo">B - M&eacute;dio/Baixo</label>
+								<input style="border:0px" type="radio" name="radioClasseRisco" id="riscoC" value="C" onclick="document.getElementById('classeRisco').value=this.value"><label for="riscoC" data-translate="c.medioalto">C - M&eacute;dio/Alto</label>
+								<input style="border:0px" type="radio" name="radioClasseRisco" id="riscoD" value="D" onclick="document.getElementById('classeRisco').value=this.value"><label for="riscoD" data-translate="d.alto">D - Alto</label>
+								<input style="border:0px" type="radio" name="radioClasseRisco" id="riscoD" value="E" onclick="document.getElementById('classeRisco').value=this.value"><label for="riscoE" data-translate="e.extremo">E - Extremo</label>
+							</td>
+						</tr>
+					</table>
+					<iframe id="ifAnalise" width="777" height="180" frameborder=0 scrolling="no"></iframe>
+			        <table border="0" width="777">
+			            <tr>
+				            <td class="tableLabel" style="text-align:center" data-translate="narrativaaanalisecredito">
+				                Narrativa An&aacute;lise de Cr&eacute;dito
+				            </td>
+			            </tr>
+			            <tr>
+			            	<td style="text-align:center">
+						        <textarea name="livre_analise" id="livre_analise" style="width:700px;max-width:700px"></textarea>
+			            	</td>
+			            </tr>
+			        </table>
+				</div>
+<!-- 				<div id="tabsHistorico" class="tabpane">
+                    <table width="777">
+                        <tr>
+                            <td class="tableLabel" colspan=2 style="text-align:center" data-translate="faixadevencimento">Faixa de Vencimento</td>
+                            <td width=10></td>
+                            <td class="tableLabel" colspan=2 style="text-align:center" data-translate="filtros">Filtros</td>
+                            <td width=10></td>
+                            <td class="tableLabel" colspan=2 style="text-align:center" data-translate="analisefinanceira">An&aacute;lise Financeira</td>
+                        </tr>
+                        <tr>
+                            <td class="tableLabel" data-translate="inicio">Inicio:</td>
+                            <td class="tableCell">
+                            	<input type="text" name="inicioTitulo" id="inicioTitulo" size=12 onkeypress="mascara(this,data)" readonly>
+                            </td>
+                            <td width=10></td>
+                            <td class="tableLabel" data-translate="atrasosmaioresque">Atrasos maiores que:</td>
+                            <td class="tableCell">
+                            	<input type="text" name="atrasoTitulo" id="atrasoTitulo" size=6 onkeypress="mascara(this,inteiro)">
+                            </td>
+                            <td width=10></td>
+                            <td class="tableLabel" data-translate="diasdeatrasomedio">Dias de atraso m&eacute;dio:</td>
+                            <td class="tableCell">
+                            	<input type="text" class="readonly" readonly name="atrasoMedioTitulo" id="atrasoMedioTitulo" size="10" maxlength="16" value="0" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableLabel" data-translate="fim">Fim:</td>
+                            <td class="tableCell">
+                            	<input type="text" name="fimTitulo" id="fimTitulo" size=12 onkeypress="mascara(this,data)" readonly>
+                            </td>
+                            <td width=10></td>
+                            <td class="tableLabel" data-translate="titulosmaioresque">Titulos Maiores que:</td>
+                            <td class="tableCell">
+                            	<input type="text" name="valorTitulo" id="valorTitulo" size=15 onkeypress="mascara(this,valor)">&nbsp;<input type="button" value="Aplicar" onclick="javascript:aplicaFiltro()">
+                            </td>
+                            <td width=10></td>
+                            <td class="tableLabel" data-translate="valormediopagoatraso">Valor m&eacute;dio pago em atraso:</td> 
+                            <td class="tableCell">
+                            	<input type="text" class="readonly" readonly name="valorMedioTitulo" id="valorMedioTitulo" size="16" maxlength="16" value="R$0,00" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td colspan="8">
+                        		<table tablename="tbFinanceiro" id="tbFinanceiro" noaddbutton="true">
+                        			<tr>
+                        				<th class="tableTitle" data-translate="seq">Seq</th>
+                        				<th class="tableTitle" data-translate="nrdocto">Nr Docto</th>
+                        				<th class="tableTitle" data-translate="par">Par</th>
+                        				<th class="tableTitle" data-translate="dtemissao">Dt Emiss&atilde;o</th>
+                        				<th class="tableTitle" data-translate="dtvenc">Dt Venc</th>
+                        				<th class="tableTitle" data-translate="dtpagto">Dt Pagto</th>
+                        				<th class="tableTitle" data-translate="valortitulo">Valor Titulo</th>
+                        				<th class="tableTitle" data-translate="atraso">Atraso</th>
+                        			</tr>
+                        			<tr>
+			                 			<td align="center"><input type="text" name="fSequencia" id="fSequencia" readonly class="readonly" size=3 style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="fDocto" id="fDocto" readonly class="readonly" size=9 /></td>
+			                 			<td align="center"><input type="text" name="fPar" id="fPar" readonly class="readonly" size=5 style="text-align: center" /></td>
+			                 			<td align="center"><input type="text" name="fEmissao" id="fEmissao" readonly class="readonly" size=11 /></td>
+			                 			<td align="center"><input type="text" name="fVenc" id="fVenc" readonly class="readonly" size=11 /></td>
+			                 			<td align="center"><input type="text" name="fPagto" id="fPagto" readonly class="readonly" size=11 /></td>
+			                 			<td align="center"><input type="text" name="fValor" id="fValor" readonly class="readonly" size=12 style="text-align: right" /></td>
+			                 			<td align="center"><input type="text" name="fAtraso" id="fAtraso" readonly class="readonly" size=5 style="text-align: center" /></td>
+			                 		</tr>
+			                 	</table>
+                        	</td>
+                        </tr>
+                    </table> 
+				</div>-->
+			</div>
+		</div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<title>Pagamento Usu&aacute;io</title>
+		<link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+		<link type="text/css" rel="stylesheet" href="/util/css/fluig.css"/>
+		<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+		<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+		<script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="custom.js"></script>
+	</head>
+	<body>
+		<div class="fluig-style-guide">
+			<div class="page-header">
+				<a href="#" target="_blank"><img src="/util/images/Logo.gif" border="0"></a>
+				<h2 class="title">Configura&ccedil&atildeo Contas do Usu&aacute;rio</h2>
+			</div>		
+			<form name="form" role="form" class="form-horizontal">
+	           	<input name="descricao" id="descricao" type="hidden" />
+				<div class="panel panel-info">
+					<div class="panel-heading">Cadastro</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="cdSolicitacao" class="col-xs-3 control-label">Processo:</label>
+							<div class="col-xs-4">
+			                	<select id="processo" name="processo" class="form-control" >
+									<option value="1">Adiantamento de fornecedor</option>
+									<option value="2">Adiantamento Fornecedor Aduaneiro</option>
+									<option value="3">Adiantamento para Despesas</option>
+									<option value="4">Fundo Fixo</option>
+									<option value="5">Pagamento Impostos</option>
+									<option value="6">Pagamento Despesas Gerais</option>
+									<option value="7">Pagamento Seguros</option>
+									<option value="8">Reembolso de Cursos e Treinamentos</option>
+									<option value="9">Reembolso de Despesas</option>
+			                	</select>
+			                	<input type="hidden" name="descricaoProcesso" id="descricaoProcesso" />
+					        </div>
+						</div>			
+						<div class="form-group">
+							<label for="nmUsuario" class="col-xs-3 control-label">Usu&aacute;rio:</label>
+							<div class="col-xs-3">
+								<div class="input-group">
+							    	<input type="text" name="codigo" id="codigo" class="form-control" readonly data-required="true">
+									<span class="input-group-addon group-zoom no-view zoom-click" data-event="usuario">
+							    		<span class="fluigicon fluigicon-zoom-in"></span>
+							    	</span>
+							    </div>
+						    </div>
+							<div class="col-xs-5">
+						    	<input type="text" name="nomeUsuario" id="nomeUsuario" class="form-control" readonly data-required="true">
+							</div>						    
+						</div>
+						<input type="button" class="btn btn-default btn-conta" value="Adicionar" />
+						<table class="table table-striped" id="tbConta" tablename="tbConta" border=0 noaddbutton="true">
+							<thead>
+								<tr>
+									<td>Conta cont&aacute;bil</td>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									<div class="col-sm-3">
+										<div class="input-group">
+									    	<input type="text" name="codigoConta" id="codigoConta" class="form-control" readonly data-required="true">
+											<span class="input-group-addon group-zoom no-view zoom-click" data-event="conta">
+									    		<span class="fluigicon fluigicon-zoom-in"></span>
+									    	</span>
+									    </div>
+									</div>
+									<div class="col-xs-5">
+										<input id="nomeConta" name="nomeConta" type="text" size=30 readonly class="form-control"/>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<input type="button" class="btn btn-default btn-centrocusto" value="Adicionar" />
+						<table class="table table-striped" id="tbCentroCusto" tablename="tbCentroCusto" border=0 noaddbutton="true">
+							<thead>
+								<tr>
+									<td>Centro custo</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="col-xs-3">
+											<div class="input-group">
+										    	<input type="text" name="codigoCentroCusto" id="codigoCentroCusto" class="form-control" readonly data-required="true">
+												<span class="input-group-addon group-zoom no-view zoom-click" data-event="centrocusto">
+										    		<span class="fluigicon fluigicon-zoom-in"></span>
+										    	</span>
+										    </div>
+										</div>
+										<div class="col-xs-5">
+											<input id="nomeCentroCusto" name="nomeCentroCusto" type="text" size=30 readonly class="form-control"/>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	           	                
+			</form>
+		</div>
+	</body>
+</html>
+
